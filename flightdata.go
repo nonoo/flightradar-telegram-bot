@@ -228,6 +228,10 @@ func (f *FlightData) Updater(ctx context.Context) {
 					var flightNr string
 					if newAircraft.FlightNumber != "" {
 						flightNr = newAircraft.FlightNumber
+						airline := airlines.Find(newAircraft.FlightNumber)
+						if airline != nil {
+							flightNr += " (" + airline.Name + ")"
+						}
 					} else {
 						flightNr = "???"
 					}

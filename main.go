@@ -141,6 +141,10 @@ func main() {
 		fmt.Println("error: can't load airports:", err)
 		os.Exit(1)
 	}
+	if err := airlines.Load(ctx); err != nil {
+		fmt.Println("error: can't load airlines:", err)
+		os.Exit(1)
+	}
 
 	opts := []bot.Option{
 		bot.WithDefaultHandler(telegramBotUpdateHandler),
