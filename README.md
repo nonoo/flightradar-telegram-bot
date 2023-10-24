@@ -5,8 +5,12 @@ This bot announces flights which are passing over a given range and location.
 The bot acquires data from [FlightRadar24.com](https://flightradar24.com/) and
 uses the [Telegram Bot API](https://github.com/go-telegram-bot-api/telegram-bot-api).
 Configuration is saved in a JSON file in the operating system's default app
-configuration directory. Tested on Linux, but should be able to run on other
-operating systems.
+configuration directory.
+
+Settings are stored per chat ID, so you can use the bot in multiple groups in
+case you need different settings (for example: different location settings).
+
+Tested on Linux, but should be able to run on other operating systems.
 
 ## Compiling
 
