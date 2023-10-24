@@ -253,7 +253,7 @@ func (f *FlightData) Updater(ctx context.Context) {
 
 					var origDest string
 					if origin != "???" && dest != "???" {
-						origDest = "🗺 " + origin + " 🡆 " + dest + "\n"
+						origDest = "🗺 " + origin + " → " + dest + "\n"
 					}
 
 					var aircraftType string
