@@ -30,18 +30,18 @@ func sendReplyToMessage(ctx context.Context, replyToMsg *models.Message, s strin
 	return
 }
 
-func editReplyToMessage(ctx context.Context, msg *models.Message, s string) error {
-	var err error
-	_, err = telegramBot.EditMessageText(ctx, &bot.EditMessageTextParams{
-		MessageID: msg.ID,
-		ChatID:    msg.Chat.ID,
-		Text:      s,
-	})
-	if err != nil {
-		fmt.Println("  reply edit error:", err)
-	}
-	return err
-}
+// func editReplyToMessage(ctx context.Context, msg *models.Message, s string) error {
+// 	var err error
+// 	_, err = telegramBot.EditMessageText(ctx, &bot.EditMessageTextParams{
+// 		MessageID: msg.ID,
+// 		ChatID:    msg.Chat.ID,
+// 		Text:      s,
+// 	})
+// 	if err != nil {
+// 		fmt.Println("  reply edit error:", err)
+// 	}
+// 	return err
+// }
 
 func sendTextToAdmins(ctx context.Context, s string) {
 	for _, chatID := range params.AdminUserIDs {

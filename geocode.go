@@ -19,3 +19,9 @@ func GetRectCoordinatesFromLocation(location *geocoder.Location, rangeKm int) (p
 	p2 = geocoder.Location{Lat: rp2.Lat(), Lng: rp2.Lng()}
 	return
 }
+
+func GetDistanceInKm(l1 *geocoder.Location, l2 *geocoder.Location) int {
+	p1 := geo.NewPoint(l1.Lat, l1.Lng)
+	p2 := geo.NewPoint(l2.Lat, l2.Lng)
+	return int(p1.GreatCircleDistance(p2) / 1000)
+}

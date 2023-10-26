@@ -238,17 +238,19 @@ func (f *FlightData) Updater(ctx context.Context) {
 					}
 
 					origin := "N/A"
+					originAirport := airports.Find(newAircraft.Origin)
 					if newAircraft.Origin != "" {
 						origin = newAircraft.Origin
-						if a := airports.Find(newAircraft.Origin); a != nil {
-							origin += " (" + a.Country + ")"
+						if originAirport != nil {
+							origin += " (" + originAirport.Country + ")"
 						}
 					}
 					dest := "N/A"
+					destAirport := airports.Find(newAircraft.Destination)
 					if newAircraft.Destination != "" {
 						dest = newAircraft.Destination
-						if a := airports.Find(newAircraft.Destination); a != nil {
-							dest += " (" + a.Country + ")"
+						if destAirport != nil {
+							dest += " (" + destAirport.Country + ")"
 						}
 					}
 
@@ -258,7 +260,10 @@ func (f *FlightData) Updater(ctx context.Context) {
 
 					var origDest string
 					if origin != "N/A" && dest != "N/A" {
-						origDest = "🗺 " + origin + " → " + dest + "\n"
+						distanceKm := GetDistanceInKm(&geocoder.Location{Lat: originAirport.Latitude, Lng: originAirport.Longitude},
+							&geocoder.Location{Lat: destAirport.Latitude, Lng: destAirport.Longitude})
+						origDest = "🗺 " + origin + " → " + dest + "\n" +
+							"📏 " + fmt.Sprint(distanceKm) + "km\n"
 					}
 
 					var aircraftType string
