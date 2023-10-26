@@ -86,6 +86,9 @@ func handleMessage(ctx context.Context, update *models.Update) {
 		case "frrange":
 			fmt.Println("  interpreting as cmd frrange")
 			cmdHandler.Range(ctx, update.Message)
+		case "frminrange":
+			fmt.Println("  interpreting as cmd frminrange")
+			cmdHandler.MinRange(ctx, update.Message)
 		case "frhelp":
 			fmt.Println("  interpreting as cmd aaihelp")
 			cmdHandler.Help(ctx, update.Message, cmdChar)

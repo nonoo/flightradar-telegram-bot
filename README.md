@@ -60,6 +60,7 @@ variable. Available OS environment variables are:
 
 - `frloc (location)` - set or show current location
 - `frrange (range)` - set or show current range
+- `frminrange (range)` - set or show current minimum range
 
 Only admins can set the location and range.
 

@@ -259,8 +259,9 @@ func (f *FlightData) Updater(ctx context.Context) {
 					}
 
 					var origDest string
+					var distanceKm int
 					if origin != "N/A" && dest != "N/A" {
-						distanceKm := GetDistanceInKm(&geocoder.Location{Lat: originAirport.Latitude, Lng: originAirport.Longitude},
+						distanceKm = GetDistanceInKm(&geocoder.Location{Lat: originAirport.Latitude, Lng: originAirport.Longitude},
 							&geocoder.Location{Lat: destAirport.Latitude, Lng: destAirport.Longitude})
 						origDest = "🗺 " + origin + " → " + dest + "\n" +
 							"📏 " + fmt.Sprint(distanceKm) + "km\n"
@@ -278,6 +279,11 @@ func (f *FlightData) Updater(ctx context.Context) {
 					fmt.Println("  new aircraft:", msg)
 
 					for _, chatID := range f.Location[i].ChatIDs {
+						minRangeKm := settings.GetInt(chatID, "MinimumRangeKm")
+						if distanceKm < minRangeKm {
+							continue
+						}
+
 						fmt.Println("    sending to chat:", chatID)
 						_, err = telegramBot.SendMessage(ctx, &bot.SendMessageParams{
 							ChatID: chatID,

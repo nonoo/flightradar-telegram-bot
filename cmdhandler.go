@@ -92,11 +92,38 @@ func (c *cmdHandlerType) Range(ctx context.Context, msg *models.Message) {
 	sendReplyToMessage(ctx, msg, "📏 Range set!\n"+c.getLocationDescription(msg.Chat.ID))
 }
 
+func (c *cmdHandlerType) MinRange(ctx context.Context, msg *models.Message) {
+	if msg.Text == "" {
+		minRangeKm := settings.GetInt(msg.Chat.ID, "MinimumRangeKm")
+		sendReplyToMessage(ctx, msg, "📏 Minimum range: "+fmt.Sprint(minRangeKm)+" km\n")
+		return
+	}
+
+	if !slices.Contains(params.AdminUserIDs, msg.From.ID) {
+		sendReplyToMessage(ctx, msg, errorStr+": only admins can set minimum range")
+		return
+	}
+
+	r, err := strconv.Atoi(msg.Text)
+	if err != nil {
+		sendReplyToMessage(ctx, msg, errorStr+": "+err.Error())
+		return
+	}
+
+	if err := settings.Set(msg.Chat.ID, "MinimumRangeKm", r); err != nil {
+		sendReplyToMessage(ctx, msg, errorStr+": "+err.Error())
+		return
+	}
+
+	sendReplyToMessage(ctx, msg, "📏 Minimum range set to "+fmt.Sprint(r)+" km!")
+}
+
 func (c *cmdHandlerType) Help(ctx context.Context, msg *models.Message, cmdChar string) {
 	sendReplyToMessage(ctx, msg, "🤖 Flightradar Telegram Bot\n\n"+
 		"Available commands:\n\n"+
 		cmdChar+"frloc (location) - set or show current location\n"+
 		cmdChar+"frrange (range) - set or show current range\n"+
+		cmdChar+"frminrange (range) - set or show current minimum range\n"+
 		cmdChar+"frhelp - show this help\n\n"+
 		"For more information see https://github.com/nonoo/flightradar-telegram-bot")
 }

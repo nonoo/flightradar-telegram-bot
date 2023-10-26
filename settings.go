@@ -11,10 +11,11 @@ import (
 
 type ChatSettings struct {
 	Location struct {
-		Name    string  `json:"name,omitempty"`
-		Lat     float64 `json:"lat,omitempty"`
-		Lng     float64 `json:"lng,omitempty"`
-		RangeKm int     `json:"rangeKm,omitempty"`
+		Name           string  `json:"name,omitempty"`
+		Lat            float64 `json:"lat,omitempty"`
+		Lng            float64 `json:"lng,omitempty"`
+		RangeKm        int     `json:"rangeKm,omitempty"`
+		MinimumRangeKm int     `json:"minimumRangeKm,omitempty"`
 	} `json:"location,omitempty"`
 }
 
@@ -75,6 +76,8 @@ func (s *Settings) Set(chatID int64, key string, value interface{}) error {
 		cs.Location.Lng = value.(float64)
 	case "LocationRangeKm":
 		cs.Location.RangeKm = value.(int)
+	case "MinimumRangeKm":
+		cs.Location.MinimumRangeKm = value.(int)
 	default:
 		return fmt.Errorf("unknown setting key: %s", key)
 	}
@@ -113,6 +116,8 @@ func (s *Settings) GetInt(chatID int64, key string) int {
 	switch key {
 	case "LocationRangeKm":
 		return cs.Location.RangeKm
+	case "MinimumRangeKm":
+		return cs.Location.MinimumRangeKm
 	default:
 		panic("invalid setting key")
 	}
