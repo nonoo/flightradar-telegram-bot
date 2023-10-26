@@ -268,7 +268,7 @@ func (f *FlightData) Updater(ctx context.Context) {
 					msg := fmt.Sprintf("🛩️ " + flightNr + "\n" +
 						origDest +
 						aircraftType +
-						"📍 https://www.flightradar24.com/" + newAircraft.FlightNumber + "/" + newAircraft.ID + "")
+						path.Join("📍 https://www.flightradar24.com/", newAircraft.FlightNumber, newAircraft.ID))
 					fmt.Println("  new aircraft:", msg)
 
 					for _, chatID := range f.Location[i].ChatIDs {
