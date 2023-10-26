@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"path"
 	"time"
 
 	geocoder "github.com/codingsince1985/geo-golang"
@@ -233,17 +234,17 @@ func (f *FlightData) Updater(ctx context.Context) {
 							flightNr += " (" + airline.Name + ")"
 						}
 					} else {
-						flightNr = "???"
+						flightNr = "N/A"
 					}
 
-					origin := "???"
+					origin := "N/A"
 					if newAircraft.Origin != "" {
 						origin = newAircraft.Origin
 						if a := airports.Find(newAircraft.Origin); a != nil {
 							origin += " (" + a.Country + ")"
 						}
 					}
-					dest := "???"
+					dest := "N/A"
 					if newAircraft.Destination != "" {
 						dest = newAircraft.Destination
 						if a := airports.Find(newAircraft.Destination); a != nil {
@@ -251,12 +252,12 @@ func (f *FlightData) Updater(ctx context.Context) {
 						}
 					}
 
-					if newAircraft.FlightNumber == "" && origin == "???" && dest == "???" {
+					if newAircraft.FlightNumber == "" && origin == "N/A" && dest == "N/A" {
 						continue
 					}
 
 					var origDest string
-					if origin != "???" && dest != "???" {
+					if origin != "N/A" && dest != "N/A" {
 						origDest = "🗺 " + origin + " → " + dest + "\n"
 					}
 
