@@ -121,9 +121,9 @@ func (c *cmdHandlerType) MinRange(ctx context.Context, msg *models.Message) {
 func (c *cmdHandlerType) Help(ctx context.Context, msg *models.Message, cmdChar string) {
 	sendReplyToMessage(ctx, msg, "🤖 Flightradar Telegram Bot\n\n"+
 		"Available commands:\n\n"+
-		cmdChar+"frloc (location) - set or show current location\n"+
-		cmdChar+"frrange (range) - set or show current range\n"+
-		cmdChar+"frminrange (range) - set or show current minimum range\n"+
+		cmdChar+"frloc (address) - set or show current location (address will be resolved to coordinates using OpenStreetMap)\n"+
+		cmdChar+"frrange (range) - set or show current range in kilometers\n"+
+		cmdChar+"frminrange (range) - set or show current minimum range in kilometers\n"+
 		cmdChar+"frhelp - show this help\n\n"+
 		"For more information see https://github.com/nonoo/flightradar-telegram-bot")
 }
