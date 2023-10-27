@@ -36,8 +36,8 @@ func (c *cmdHandlerType) Location(ctx context.Context, msg *models.Message) {
 		return
 	}
 
-	if !slices.Contains(params.AdminUserIDs, msg.From.ID) {
-		sendReplyToMessage(ctx, msg, errorStr+": only admins can set location")
+	if !slices.Contains(params.AllowedUserIDs, msg.From.ID) {
+		fmt.Println("  user not allowed")
 		return
 	}
 
@@ -73,8 +73,8 @@ func (c *cmdHandlerType) Range(ctx context.Context, msg *models.Message) {
 		return
 	}
 
-	if !slices.Contains(params.AdminUserIDs, msg.From.ID) {
-		sendReplyToMessage(ctx, msg, errorStr+": only admins can set range")
+	if !slices.Contains(params.AllowedUserIDs, msg.From.ID) {
+		fmt.Println("  user not allowed")
 		return
 	}
 
@@ -99,8 +99,8 @@ func (c *cmdHandlerType) MinRange(ctx context.Context, msg *models.Message) {
 		return
 	}
 
-	if !slices.Contains(params.AdminUserIDs, msg.From.ID) {
-		sendReplyToMessage(ctx, msg, errorStr+": only admins can set minimum range")
+	if !slices.Contains(params.AllowedUserIDs, msg.From.ID) {
+		fmt.Println("  user not allowed")
 		return
 	}
 
