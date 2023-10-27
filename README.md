@@ -58,11 +58,14 @@ variable. Available OS environment variables are:
 
 ## Supported commands
 
-- `frloc (location)` - set or show current location
-- `frrange (range)` - set or show current range
-- `frminrange (range)` - set or show current minimum range
+- `frloc (address)` - set or show current location (address will be
+  resolved to coordinates using [OpenStreetMap](https://www.openstreetmap.org/)
+- `frrange (range)` - set or show current range in kilometers
+- `frminrange (range)` - set or show current minimum range in kilometers
 
-Only admins can set the location and range.
+Range filtering is done by FlightRadar and it uses a rectangle shaped
+boundary. Setting 100 for range means filtering for a 200x200km rectangle
+with the given location in the middle.
 
 ## Contributors
 
