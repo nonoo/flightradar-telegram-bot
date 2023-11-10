@@ -260,7 +260,7 @@ func (f *FlightData) Updater(ctx context.Context) {
 
 					var origDest string
 					var distanceKm int
-					if origin != "N/A" && dest != "N/A" {
+					if origin != "N/A" && dest != "N/A" && originAirport != nil && destAirport != nil {
 						distanceKm = GetDistanceInKm(&geocoder.Location{Lat: originAirport.Latitude, Lng: originAirport.Longitude},
 							&geocoder.Location{Lat: destAirport.Latitude, Lng: destAirport.Longitude})
 						origDest = "🗺 " + origin + " → " + dest + "\n" +
