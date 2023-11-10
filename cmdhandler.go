@@ -34,6 +34,7 @@ func (c *cmdHandlerType) getStatus(chatID int64) string {
 	p1, p2 := GetRectCoordinatesFromLocation(&loc, rangeKm)
 	return "📌 Current location is " + name + " https://www.google.com/maps/place/" + fmt.Sprint(loc.Lat, ",", loc.Lng) + "\n" +
 		"📏 Range: " + fmt.Sprint(rangeKm) + " km\n" +
+		"📏 Minimum range: " + fmt.Sprint(settings.GetInt(chatID, "MinimumRangeKm")) + " km\n" +
 		"🗺 Area top left: https://www.google.com/maps/place/" + fmt.Sprint(p1.Lat, ",", p1.Lng) + "\n" +
 		"🗺 Area bottom right: https://www.google.com/maps/place/" + fmt.Sprint(p2.Lat, ",", p2.Lng) + "\n" +
 		airportFilter
