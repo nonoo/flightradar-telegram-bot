@@ -16,6 +16,7 @@ type ChatSettings struct {
 		Lng            float64 `json:"lng,omitempty"`
 		RangeKm        int     `json:"rangeKm,omitempty"`
 		MinimumRangeKm int     `json:"minimumRangeKm,omitempty"`
+		AirportFilter  string  `json:"airportFilter,omitempty"`
 	} `json:"location,omitempty"`
 }
 
@@ -78,6 +79,8 @@ func (s *Settings) Set(chatID int64, key string, value interface{}) error {
 		cs.Location.RangeKm = value.(int)
 	case "MinimumRangeKm":
 		cs.Location.MinimumRangeKm = value.(int)
+	case "AirportFilter":
+		cs.Location.AirportFilter = value.(string)
 	default:
 		return fmt.Errorf("unknown setting key: %s", key)
 	}
@@ -92,6 +95,8 @@ func (s *Settings) GetString(chatID int64, key string) string {
 	switch key {
 	case "LocationName":
 		return cs.Location.Name
+	case "AirportFilter":
+		return cs.Location.AirportFilter
 	default:
 		panic("invalid setting key")
 	}

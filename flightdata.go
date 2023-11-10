@@ -288,6 +288,25 @@ func (f *FlightData) Updater(ctx context.Context) {
 							continue
 						}
 
+						airportFilter := settings.GetString(chatID, "AirportFilter")
+						if airportFilter != "" {
+							if originAirport != nil && destAirport != nil {
+								if originAirport.IATA != airportFilter && destAirport.IATA != airportFilter {
+									continue
+								}
+							} else if originAirport != nil {
+								if originAirport.IATA != airportFilter {
+									continue
+								}
+							} else if destAirport != nil {
+								if destAirport.IATA != airportFilter {
+									continue
+								}
+							} else {
+								continue
+							}
+						}
+
 						fmt.Println("    sending to chat:", chatID)
 						_, err = telegramBot.SendMessage(ctx, &bot.SendMessageParams{
 							ChatID: chatID,

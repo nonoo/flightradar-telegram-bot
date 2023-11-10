@@ -62,6 +62,9 @@ variable. Available OS environment variables are:
   resolved to coordinates using [OpenStreetMap](https://www.openstreetmap.org/)
 - `frrange (range)` - set or show current range in kilometers
 - `frminrange (range)` - set or show current minimum range in kilometers
+- `frairport [airport code]` - set current airport filter
+- `frstatus` - show current status
+- `frhelp` - show the help
 
 Range filtering is done by FlightRadar and it uses a rectangle shaped
 boundary. Setting 100 for range means filtering for a 200x200km rectangle
