@@ -20,7 +20,7 @@ func (c *cmdHandlerType) getLocationDescription(chatID int64) string {
 		return "📌 No location set"
 	}
 	if rangeKm == 0 {
-		return "📏 No range set"
+		return "📏 Range: 0 km"
 	}
 
 	p1, p2 := GetRectCoordinatesFromLocation(&loc, rangeKm)

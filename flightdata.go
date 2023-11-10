@@ -163,15 +163,19 @@ func (f *FlightData) Updater(ctx context.Context) {
 			_, err := telegramBot.GetChat(ctx, &bot.GetChatParams{
 				ChatID: id,
 			})
+
+			name := settings.GetString(id, "LocationName")
+
 			if err != nil { // We are not in this chat anymore?
 				_ = settings.RemoveChatID(id)
+				delete(f.Location, name)
 				continue
 			}
 
-			name := settings.GetString(id, "LocationName")
 			rangeKm := settings.GetInt(id, "LocationRangeKm")
 			loc := geocoder.Location{Lat: settings.GetFloat64(id, "LocationLat"), Lng: settings.GetFloat64(id, "LocationLng")}
 			if name == "" || rangeKm == 0 || (loc.Lat == 0 && loc.Lng == 0) { // No location is set in this chat?
+				delete(f.Location, name)
 				continue
 			}
 
