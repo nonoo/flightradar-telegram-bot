@@ -283,8 +283,10 @@ func (f *FlightData) Updater(ctx context.Context) {
 					fmt.Println("  new aircraft:", msg)
 
 					for _, chatID := range f.Location[i].ChatIDs {
+						fmt.Println("    checking chat:", chatID)
 						minRangeKm := settings.GetInt(chatID, "MinimumRangeKm")
 						if distanceKm < minRangeKm {
+							fmt.Println("      ignoring, distance is less than minimum range:", distanceKm, "<", minRangeKm)
 							continue
 						}
 
@@ -292,17 +294,21 @@ func (f *FlightData) Updater(ctx context.Context) {
 						if airportFilter != "" {
 							if originAirport != nil && destAirport != nil {
 								if originAirport.IATA != airportFilter && destAirport.IATA != airportFilter {
+									fmt.Println("      ignoring, airport filter active, not flying to/from the airport:", airportFilter)
 									continue
 								}
 							} else if originAirport != nil {
 								if originAirport.IATA != airportFilter {
+									fmt.Println("      ignoring, airport filter active, not flying to/from the airport:", airportFilter)
 									continue
 								}
 							} else if destAirport != nil {
 								if destAirport.IATA != airportFilter {
+									fmt.Println("      ignoring, airport filter active, not flying to/from the airport:", airportFilter)
 									continue
 								}
 							} else {
+								fmt.Println("      ignoring, airport filter active, no origin/destination airport")
 								continue
 							}
 						}
