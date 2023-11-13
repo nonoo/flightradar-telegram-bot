@@ -264,7 +264,7 @@ func (f *FlightData) Updater(ctx context.Context) {
 
 					var origDest string
 					var distanceKm int
-					if origin != "N/A" && dest != "N/A" {
+					if origin != "N/A" || dest != "N/A" {
 						origDest = "🗺 " + origin + " → " + dest + "\n"
 
 						if originAirport != nil && destAirport != nil {
